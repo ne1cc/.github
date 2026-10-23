@@ -6,7 +6,8 @@
  * - Returns one human-readable problem string per violation otherwise.
  *
  * Limits: sections are matched by exact "## <name>" headings; HTML comments
- * (the template's placeholders) don't count as content.
+ * (the template's placeholders) and lines starting with 🤖 (agent attribution
+ * footers, which land inside the last section) don't count as content.
  */
 export const REQUIRED_SECTIONS = [
   "Summary",
@@ -20,7 +21,7 @@ export const REQUIRED_SECTIONS = [
 const ISSUE_LINK = /\b(close[sd]?|fix(e[sd])?|resolve[sd]?)\s+#\d+/i;
 
 export function checkPrBody(body, labels = []) {
-  const text = (body ?? "").replace(/<!--[\s\S]*?-->/g, "");
+  const text = (body ?? "").replace(/<!--[\s\S]*?-->/g, "").replace(/^🤖.*$/gm, "");
   const problems = [];
 
   // 1. Issue link required (label "no-issue" → exempt, for PRs not driven by an issue)

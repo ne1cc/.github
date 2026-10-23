@@ -48,6 +48,13 @@ test("comment-only section counts as empty", () => {
   assert.deepEqual(checkPrBody(body, []), ["Empty section: ## Deviations from the issue"]);
 });
 
+test("agent footer does not make an empty last section pass", () => {
+  const footer = "🤖 Generated with [Claude Code](https://claude.com/claude-code)\n";
+  const body = filled.replace(/## Limits & notes for reviewers\nNone\n/, "## Limits & notes for reviewers\n\n") + footer;
+  assert.deepEqual(checkPrBody(body, []), ["Empty section: ## Limits & notes for reviewers"]);
+  assert.deepEqual(checkPrBody(filled + footer, []), []);
+});
+
 test("Fixes/Resolves also link the issue", () => {
   assert.deepEqual(checkPrBody(filled.replace("Closes #23", "Fixes #23"), []), []);
   assert.deepEqual(checkPrBody(filled.replace("Closes #23", "resolves #23"), []), []);
