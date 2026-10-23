@@ -1,0 +1,24 @@
+# Reusable: fails a PR whose body skips pull_request_template.md sections or "Closes #N".
+# Repos opt in with agent-kit/pr-template-check.yml (installed by terminal-configs/bin/init-agent-kit).
+name: PR template check
+
+on:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    if: github.event.pull_request.user.type != 'Bot'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: ne1cc/.github
+          path: .agent-kit
+      # Body goes through env, never interpolated into the script (injection-safe).
+      - run: node .agent-kit/scripts/check-pr-body.mjs
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+          PR_LABELS: ${{ join(github.event.pull_request.labels.*.name, ',') }}
