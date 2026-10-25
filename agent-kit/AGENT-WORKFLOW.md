@@ -15,6 +15,11 @@ first commit. If this file and any other instruction disagree, this file wins.
 - Run the exact commands from the issue's "Verify with" section.
 - Tests fail or lint fails → fix it, push to the same branch. Do not open a new PR.
 
+## Attribution
+
+- Do not add AI/vendor attribution, generated-by notices, or AI co-author lines to commits, PR titles or bodies, comments, or code comments.
+- Keep required workflow markers such as `AI review round` and `AI fix round`; they track review state and are not attribution.
+
 ## Never merge
 
 - You open the PR; the human merges it. Never run `gh pr merge`, never click merge, never
