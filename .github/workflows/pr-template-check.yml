@@ -16,6 +16,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: ne1cc/.github
+          ref: v1
           path: .agent-kit
       # Body goes through env, never interpolated into the script (injection-safe).
       - run: node .agent-kit/scripts/check-pr-body.mjs

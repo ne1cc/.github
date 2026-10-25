@@ -6,6 +6,8 @@ Keep it SHORT: every line is loaded on every run. Draft with a strong model, the
 Update it in the same PR as any change that makes it wrong.
 -->
 
+Workflow rules for agents: read [`.github/AGENT-WORKFLOW.md`](.github/AGENT-WORKFLOW.md) before your first commit.
+
 ## Commands
 <!-- Exact commands. Issues copy these into "Verify with". -->
 - Install: ``
